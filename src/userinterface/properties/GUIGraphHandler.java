@@ -75,6 +75,9 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 	private GUIPlugin plug;
 
 	private Action graphOptions, zoomIn, zoomOut, zoomDefault;
+	
+	//here
+	private Action drag;
 
 	private Action printGraph, deleteGraph;
 	private Action exportImageJPG, exportImagePNG, exportImageEPS, exportXML, exportMatlab;
@@ -82,6 +85,7 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 	private Action exportCSV, exportGNUPlot, importXML;
 
 	private JMenu zoomMenu, exportMenu, importMenu;
+
 
 	private GUIPrismFileFilter imagesFilter[], xmlFilter[], matlabFilter[], OpenDocumentChartFilter[], OpenDocumentSpreadsheetFilter[], CSVFilter[],
 			GNUFilter[], DATFilter[];
@@ -194,7 +198,9 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 		zoomIn.putValue(Action.MNEMONIC_KEY, new Integer(KeyEvent.VK_I));
 		zoomIn.putValue(Action.SMALL_ICON, GUIPrism.getIconFromImage("smallPlayerFwd.png"));
 		zoomIn.putValue(Action.LONG_DESCRIPTION, "Zoom in on the graph.");
+		
 
+		
 		zoomOut = new AbstractAction()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -449,6 +455,22 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 		deleteGraph.putValue(Action.SMALL_ICON, GUIPrism.getIconFromImage("smallDelete.png"));
 		deleteGraph.putValue(Action.LONG_DESCRIPTION, "Deletes the graph.");
 
+		//from here
+		drag = new AbstractAction()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				Graph graph = models.get(theTabs.getSelectedIndex());
+			}
+		};
+		drag.putValue(Action.NAME, "drag");
+		drag.putValue(Action.MNEMONIC_KEY,new Integer(KeyEvent.VK_M));
+		drag.putValue(Action.SMALL_ICON, GUIPrism.getIconFromImage("smallDrag.png"));
+		drag.putValue(Action.LONG_DESCRIPTION,"drag the graph");
+		//till here 
+		
+		
+		
 		zoomMenu = new JMenu("Zoom");
 		zoomMenu.setMnemonic('Z');
 		zoomMenu.setIcon(GUIPrism.getIconFromImage("smallView.png"));
@@ -473,6 +495,10 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 
 		graphMenu.add(graphOptions);
 		graphMenu.add(zoomMenu);
+		//here
+		graphMenu.addSeparator();
+		graphMenu.add(drag);
+		//till here
 		graphMenu.addSeparator();
 		graphMenu.add(printGraph);
 		graphMenu.add(deleteGraph);
@@ -694,7 +720,8 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 
 				exportMenu.setEnabled(true);
 				importMenu.setEnabled(true);
-
+				//here
+				drag.setEnabled(true);
 				printGraph.setEnabled(true);
 				deleteGraph.setEnabled(true);
 
@@ -707,7 +734,8 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 
 				exportMenu.setEnabled(false);
 				importMenu.setEnabled(true);
-
+				//here
+				drag.setEnabled(false);
 				printGraph.setEnabled(false);
 				deleteGraph.setEnabled(false);
 
@@ -723,7 +751,8 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 
 				exportMenu.setEnabled(true);
 				importMenu.setEnabled(true);
-
+				//here
+				drag.setEnabled(true);
 				printGraph.setEnabled(true);
 				deleteGraph.setEnabled(true);
 

@@ -64,9 +64,11 @@ public class GUIClipboard extends GUIPlugin
 	private GUIUndoManager undoManager;
     private JMenu editMenu;
     private JToolBar editToolBar;
-    //here
-    private Action actionUndo, actionRedo, actionCut, actionCopy, actionPaste, actionDelete, actionSelectAll,actionManual;
-        
+   
+    private Action actionUndo, actionRedo, actionCut, actionCopy, actionPaste, actionDelete, actionSelectAll;
+    //from here
+    private Action actionManual;
+    //to here
     /** Creates a new instance of GUIClipboard */
     public GUIClipboard(GUIPrism pr)
     {
@@ -140,9 +142,9 @@ public class GUIClipboard extends GUIPlugin
 		actionPaste.setEnabled(plugin != null && plugin.canDoClipBoardAction(actionPaste));
 		actionDelete.setEnabled(plugin != null && plugin.canDoClipBoardAction(actionDelete));
 		actionSelectAll.setEnabled(plugin != null && plugin.canDoClipBoardAction(actionSelectAll));
-		//here
+		//from here
 	   	actionManual.setEnabled(plugin != null && plugin.canDoClipBoardAction(actionManual));
-		
+		//to here
 	}
 
 	public void takeCLArgs(String args[])
@@ -211,9 +213,10 @@ public class GUIClipboard extends GUIPlugin
             editMenu.add(new JMenuItem(actionDelete));
             editMenu.add(new JSeparator());
             editMenu.add(new JMenuItem(actionSelectAll));
-            //here
-            editMenu.add(new JSeparator());  editMenu.add(new JMenuItem(actionManual));
-            
+            //from here
+            editMenu.add(new JSeparator());  
+            editMenu.add(new JMenuItem(actionManual));
+            //to here
         }
         
         editToolBar = new JToolBar();

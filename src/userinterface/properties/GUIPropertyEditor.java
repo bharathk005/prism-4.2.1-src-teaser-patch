@@ -359,6 +359,14 @@ public class GUIPropertyEditor extends javax.swing.JDialog implements ActionList
 			addString("P><p [ () U<=k () ]", CURSOR, 1);
 			propertyText.select(curs+1, curs+4);
 		}
+		//from here
+		else if(e.getSource() == alwaysButton)
+		{
+			int curs = propertyText.getCaretPosition();
+			addString("P><p [ () ]",CURSOR,1);
+			propertyText.select(curs+1,curs+4);
+		}
+		//to here
 		else if(e.getSource() == steadyStateButton)
 		{
 			int curs = propertyText.getCaretPosition();
