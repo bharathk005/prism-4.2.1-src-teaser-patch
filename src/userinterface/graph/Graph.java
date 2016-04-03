@@ -1585,7 +1585,20 @@ public class Graph extends ChartPanel implements SettingOwner, EntityResolver, O
 			processGraphCache(graphCache);
 		}
 	}
-
+	
+	
+	//from here
+	public void dragPlot(double xpercent, double ypercent)
+	{
+		//System.out.println("init drag");
+		xAxisSettings.dragging(xpercent);
+		yAxisSettings.dragging(ypercent);
+	}
+	//till here
+	
+	
+	
+	
 	/**
 	 * This is a dummy class used to be able to index Series in this graph.
 	 * Previously this was done using integers, which was unsafe if removeSeries

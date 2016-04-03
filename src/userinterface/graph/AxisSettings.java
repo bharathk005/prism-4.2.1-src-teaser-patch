@@ -1075,5 +1075,13 @@ public class AxisSettings extends Observable implements SettingOwner
 		
 		setAutoScale(autoScale);
 	}
+	public void dragging(double percent)
+	{
+		axis.pan(percent);
+//		if(plot.isDomainPannable())
+//			System.out.println("domain pannable");
+//		else System.out.println("domain not pannable");
+	}
+	
 }
 

@@ -29,13 +29,16 @@ package userinterface.properties;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -454,21 +457,29 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 		deleteGraph.putValue(Action.MNEMONIC_KEY, new Integer(KeyEvent.VK_D));
 		deleteGraph.putValue(Action.SMALL_ICON, GUIPrism.getIconFromImage("smallDelete.png"));
 		deleteGraph.putValue(Action.LONG_DESCRIPTION, "Deletes the graph.");
-
+		
+		
 		//from here
 		drag = new AbstractAction()
 		{
 			public void actionPerformed(ActionEvent e)
-			{
-				Graph graph = models.get(theTabs.getSelectedIndex());
+			{	
+				dragObject = models.get(theTabs.getSelectedIndex());
+				dragObject.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				getPoint();
+				dragging = true;
+				doDrag();
+				
+				//graph.dragPlot(xpercent, ypercent);
 			}
 		};
 		drag.putValue(Action.NAME, "drag");
 		drag.putValue(Action.MNEMONIC_KEY,new Integer(KeyEvent.VK_M));
 		drag.putValue(Action.SMALL_ICON, GUIPrism.getIconFromImage("smallDrag.png"));
 		drag.putValue(Action.LONG_DESCRIPTION,"drag the graph");
-		//till here 
 		
+	
+		//till here 
 		
 		
 		zoomMenu = new JMenu("Zoom");
@@ -508,8 +519,33 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 
 		/* Tab context menu */
 		backMenu.add(importXML);
-	}
+		
 
+	}
+	
+	//from here
+	private Graph dragObject;
+	private Point mousePt;
+	public void getPoint()
+	{	
+//        this.addMouseListener(new MouseAdapter() {
+//        	@Override
+//            public void mousePressed(MouseEvent e) {
+//            	mousePt =  e.getPoint();
+//            	  
+//            	}
+//        });
+    
+	}
+	private double xpercent,ypercent;
+	private boolean dragging = false;
+	public void doDrag()
+	{	System.out.println("doDrag");
+		dragObject.dragPlot(xpercent, ypercent);
+	}
+	//till here
+
+	
 	public void saveImage(GUIImageExportDialog imageDialog)
 	{
 		if (!imageDialog.isCancelled()) {
@@ -684,9 +720,21 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 		return theTabs.getTitleAt(i);
 	}
 
+	//from here
+    public void mouseDragged(MouseEvent e) 
+   {
+    	
+
+
+    }
+	
+	//till here
+	
 	// User right clicked on a tab
 	public void mousePressed(MouseEvent e)
-	{
+	{	
+		//here .. next line
+		mousePt =  e.getPoint();System.out.println("mousePressed");
 		if (e.isPopupTrigger()) {
 			popUpTriggered(e);
 		}
@@ -699,11 +747,34 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 			if (e.getSource() instanceof Graph) {
 				((Graph) e.getSource()).restoreAutoBounds();
 			}
+			//from here.
+		dragging = false;
+		dragObject.setCursor(Cursor.getDefaultCursor());
+		//till here
 		}
 	}
 
 	public void mouseReleased(MouseEvent e)
-	{
+	{	
+		//from here
+	       int dx = e.getX() - mousePt.x;
+	        int dy = e.getY() - mousePt.y;
+	        
+	        if(dx>0) xpercent = 0.2;
+	        else     xpercent = -0.2;
+	        
+	        if(dy>0) ypercent = 0.2;
+	        else     ypercent = -0.2;
+	        
+	        mousePt = e.getPoint();
+	        if(dragging) { doDrag(); System.out.println("mouse released"+dx+" "+dy);}
+		
+		//till here
+		
+		
+		
+		
+		
 		if (e.isPopupTrigger()) {
 			popUpTriggered(e);
 		}
