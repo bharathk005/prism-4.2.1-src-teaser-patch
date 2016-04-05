@@ -151,6 +151,9 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 	{
 		theTabs = new JTabbedPane();
 		theTabs.addMouseListener(this);
+		
+		//here.. next line
+		theTabs.addMouseMotionListener(drag1);
 
 		setLayout(new BorderLayout());
 		add(theTabs, BorderLayout.CENTER);
@@ -466,9 +469,13 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 			{	
 				dragObject = models.get(theTabs.getSelectedIndex());
 				dragObject.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				getPoint();
+		//		getPoint();
 				dragging = true;
-				doDrag();
+		//		doDrag();
+				
+				
+				
+				if(dragging) { doDrag();}
 				
 				//graph.dragPlot(xpercent, ypercent);
 			}
@@ -525,7 +532,7 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 	
 	//from here
 	private Graph dragObject;
-	private Point mousePt;
+	public Point mousePt = new Point();
 	public void getPoint()
 	{	
 //        this.addMouseListener(new MouseAdapter() {
@@ -537,10 +544,12 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 //        });
     
 	}
-	private double xpercent,ypercent;
-	private boolean dragging = false;
+	public double xpercent,ypercent;
+	public boolean dragging = false;
+	public DragLinear drag1 = new DragLinear(this);
+	
 	public void doDrag()
-	{	System.out.println("doDrag");
+	{	//System.out.println("doDrag " + xpercent + ypercent);
 		dragObject.dragPlot(xpercent, ypercent);
 	}
 	//till here
@@ -734,7 +743,7 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 	public void mousePressed(MouseEvent e)
 	{	
 		//here .. next line
-		mousePt =  e.getPoint();System.out.println("mousePressed");
+		mousePt =  e.getPoint();
 		if (e.isPopupTrigger()) {
 			popUpTriggered(e);
 		}
@@ -747,9 +756,12 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 			if (e.getSource() instanceof Graph) {
 				((Graph) e.getSource()).restoreAutoBounds();
 			}
-			//from here.
-		dragging = false;
-		dragObject.setCursor(Cursor.getDefaultCursor());
+			//from here
+		if(dragging)
+		{
+				dragging = false;
+				dragObject.setCursor(Cursor.getDefaultCursor());
+		}
 		//till here
 		}
 	}
@@ -757,17 +769,19 @@ public class GUIGraphHandler extends JPanel implements MouseListener
 	public void mouseReleased(MouseEvent e)
 	{	
 		//from here
-	       int dx = e.getX() - mousePt.x;
-	        int dy = e.getY() - mousePt.y;
-	        
-	        if(dx>0) xpercent = 0.2;
-	        else     xpercent = -0.2;
-	        
-	        if(dy>0) ypercent = 0.2;
-	        else     ypercent = -0.2;
-	        
-	        mousePt = e.getPoint();
-	        if(dragging) { doDrag(); System.out.println("mouse released"+dx+" "+dy);}
+//	       int dx = e.getX() - mousePt.x;
+//	        int dy = e.getY() - mousePt.y;
+//	        
+//	        if(dx>0) xpercent = 0.2;
+//	        else if(dx<0)    xpercent = -0.2;
+//	        else xpercent =0 ;
+//	        
+//	        if(dy>0) ypercent = 0.2;
+//	        else if(dy<0)    ypercent = -0.2;
+//	        else ypercent =0 ;
+//	        
+//	        mousePt = e.getPoint();
+//	        if(dragging) { doDrag(); System.out.println("mouse released "+dx+" "+dy);}
 		
 		//till here
 		

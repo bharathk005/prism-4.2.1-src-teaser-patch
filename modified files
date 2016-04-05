@@ -3,3 +3,6 @@ userinterface.properties.GUIMultiProperties
 userinterface.properties.GUIPropertyEditor
 userinterface.properties.GUIGraphHandler
 userinterface.graph.Graph
+userintetface.graph.AxisSettings.java
+
+userinterface.model.GUITextModelEditor -- modified so that dice.prism program is the first. 

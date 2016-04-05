@@ -537,7 +537,9 @@ public class GUITextModelEditor extends GUIModelEditor implements DocumentListen
 		// unwanted autoparsing.
 		try
 		{
-			read(new StringReader(""), "");
+			//read(new StringReader(""), "");
+			//here.. next line.. uncomment above line. 
+			read(new StringReader("dtmc\n\nmodule die\n// local state\ns : [0..7] init 0;\n// value of the die\nd : [0..6] init 0;\n[] s=0 -> 0.5 : (s'=1) + 0.5 : (s'=2);\n[] s=1 -> 0.5 : (s'=3) + 0.5 : (s'=4);\n[] s=2 -> 0.5 : (s'=5) + 0.5 : (s'=6);\n[] s=3 -> 0.5 : (s'=1) + 0.5 : (s'=7) & (d'=1);\n[] s=4 -> 0.5 : (s'=7) & (d'=2) + 0.5 : (s'=7) & (d'=3);\n[] s=5 -> 0.5 : (s'=7) & (d'=4) + 0.5 : (s'=7) & (d'=5);\n[] s=6 -> 0.5 : (s'=2) + 0.5 : (s'=7) & (d'=6);\n[] s=7 -> (s'=7);\nendmodule"), "");
 		} catch (IOException ex)
 		{ 
 			//todo:mark
