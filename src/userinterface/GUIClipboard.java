@@ -381,7 +381,7 @@ public class GUIClipboard extends GUIPlugin
     		public void actionPerformed(ActionEvent e)
     		{
     			notifyEventListeners(new GUIClipboardEvent(GUIClipboardEvent.MANUAL, getFocussedComponent()));
-    			String fileLoc = System.getProperty("user.dir")+"//doc//manual//index.html";
+    			String fileLoc = System.getProperty("user.dir")+"//doc//manual//Main//AllOnOnePage.html";
     			System.out.println(fileLoc);
    			    File f =  new File(fileLoc);
 

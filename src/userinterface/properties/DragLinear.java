@@ -18,7 +18,7 @@ public class DragLinear implements MouseMotionListener
 	{
 		//theTabs.addMouseMotionListener(this);
 		g = g1;
-		System.out.println("DragLinear is here");
+	//	System.out.println("DragLinear is here");
 	}
 	
 	
@@ -42,7 +42,7 @@ public class DragLinear implements MouseMotionListener
         
         g.mousePt = e.getPoint();
         if(g.dragging) { g.doDrag(); }
-        System.out.println("Dragged");
+      //  System.out.println("Dragged");
 	   	}
     
 		
